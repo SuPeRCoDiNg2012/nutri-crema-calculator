@@ -1,7 +1,9 @@
 
-import React from "react";
+import React, { useState } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Search } from "lucide-react";
 import { NutType } from "@/utils/nutData";
 
 interface NutSelectorProps {
@@ -15,6 +17,12 @@ const NutSelector: React.FC<NutSelectorProps> = ({
   selectedNuts,
   onChange,
 }) => {
+  const [searchTerm, setSearchTerm] = useState("");
+  
+  const filteredNuts = nuts.filter(nut => 
+    nut.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   const handleToggleNut = (nut: NutType) => {
     if (selectedNuts.find((n) => n.id === nut.id)) {
       onChange(selectedNuts.filter((n) => n.id !== nut.id));
@@ -33,32 +41,45 @@ const NutSelector: React.FC<NutSelectorProps> = ({
 
   return (
     <div className="space-y-4">
-      <div className="flex gap-4 mb-4">
-        <button
-          onClick={handleSelectAll}
-          className="text-sm text-primary hover:underline"
-          type="button"
-        >
-          Seleziona Tutto
-        </button>
-        <button
-          onClick={handleDeselectAll}
-          className="text-sm text-destructive hover:underline"
-          type="button"
-        >
-          Deseleziona Tutto
-        </button>
+      <div className="flex flex-col sm:flex-row gap-4 mb-4">
+        <div className="relative flex-1">
+          <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+          <Input
+            type="text"
+            placeholder="Cerca frutta secca..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="pl-8"
+          />
+        </div>
+        <div className="flex gap-2">
+          <button
+            onClick={handleSelectAll}
+            className="text-sm text-primary hover:underline"
+            type="button"
+          >
+            Seleziona Tutto
+          </button>
+          <button
+            onClick={handleDeselectAll}
+            className="text-sm text-destructive hover:underline"
+            type="button"
+          >
+            Deseleziona Tutto
+          </button>
+        </div>
       </div>
       
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {nuts.map((nut) => (
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+        {filteredNuts.map((nut) => (
           <div 
             key={nut.id} 
             className={`flex items-center space-x-2 p-3 rounded-lg border ${
               selectedNuts.find((n) => n.id === nut.id)
                 ? "border-primary bg-primary/10"
                 : "border-border"
-            }`}
+            } cursor-pointer hover:bg-accent transition-colors`}
+            onClick={() => handleToggleNut(nut)}
           >
             <Checkbox
               id={`nut-${nut.id}`}
@@ -74,6 +95,12 @@ const NutSelector: React.FC<NutSelectorProps> = ({
           </div>
         ))}
       </div>
+      
+      {filteredNuts.length === 0 && (
+        <div className="text-center p-4 border border-dashed rounded-md">
+          <p className="text-muted-foreground">Nessun risultato trovato</p>
+        </div>
+      )}
     </div>
   );
 };
