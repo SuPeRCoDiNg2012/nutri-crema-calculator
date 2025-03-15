@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Search } from "lucide-react";
+import { Search, Nut, CheckCheck, X } from "lucide-react";
 import { NutType } from "@/utils/nutData";
 
 interface NutSelectorProps {
@@ -55,17 +55,19 @@ const NutSelector: React.FC<NutSelectorProps> = ({
         <div className="flex gap-2">
           <button
             onClick={handleSelectAll}
-            className="text-sm text-primary hover:underline"
+            className="flex items-center gap-1 text-sm text-primary hover:underline"
             type="button"
           >
-            Seleziona Tutto
+            <CheckCheck className="h-4 w-4" />
+            <span>Seleziona Tutto</span>
           </button>
           <button
             onClick={handleDeselectAll}
-            className="text-sm text-destructive hover:underline"
+            className="flex items-center gap-1 text-sm text-destructive hover:underline"
             type="button"
           >
-            Deseleziona Tutto
+            <X className="h-4 w-4" />
+            <span>Deseleziona Tutto</span>
           </button>
         </div>
       </div>
@@ -86,12 +88,15 @@ const NutSelector: React.FC<NutSelectorProps> = ({
               checked={selectedNuts.some((n) => n.id === nut.id)}
               onCheckedChange={() => handleToggleNut(nut)}
             />
-            <Label
-              htmlFor={`nut-${nut.id}`}
-              className="cursor-pointer flex-1"
-            >
-              {nut.name}
-            </Label>
+            <div className="flex items-center gap-2">
+              <Nut className="h-4 w-4 text-amber-600" />
+              <Label
+                htmlFor={`nut-${nut.id}`}
+                className="cursor-pointer flex-1"
+              >
+                {nut.name}
+              </Label>
+            </div>
           </div>
         ))}
       </div>
