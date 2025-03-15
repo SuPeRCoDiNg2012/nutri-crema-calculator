@@ -1,10 +1,9 @@
-
 import React from "react";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { Input } from "@/components/ui/input";
-import { Leaf, Weight, Flame, Burger, Wheat, Apple } from "lucide-react";
+import { Leaf, Weight, Flame, Beef, Wheat, Apple } from "lucide-react";
 import { NutritionalTarget } from "@/utils/calculator";
 
 interface NutritionalTargetFormProps {
@@ -103,7 +102,7 @@ const NutritionalTargetForm: React.FC<NutritionalTargetFormProps> = ({
 
         <div className="space-y-3">
           <div className="flex items-center gap-2">
-            <Burger className="h-5 w-5 text-amber-600" />
+            <Beef className="h-5 w-5 text-amber-600" />
             <Label htmlFor="protein" className="text-base">Proteine (g)</Label>
           </div>
           <div className="flex gap-4 items-center">
