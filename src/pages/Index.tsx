@@ -27,8 +27,8 @@ const Index = () => {
     try {
       if (selectedNuts.length === 0) {
         toast({
-          title: "No nuts selected",
-          description: "Please select at least one type of nut for your mixture.",
+          title: "Nessuna frutta secca selezionata",
+          description: "Seleziona almeno un tipo di frutta secca per la tua miscela.",
           variant: "destructive",
         });
         return;
@@ -38,13 +38,13 @@ const Index = () => {
       setCalculationResult(result);
       
       toast({
-        title: "Calculation complete",
-        description: "Your optimal nut cream mixture has been calculated.",
+        title: "Calcolo completato",
+        description: "La tua miscela ottimale di frutta secca è stata calcolata.",
       });
     } catch (error) {
       toast({
-        title: "Calculation error",
-        description: error instanceof Error ? error.message : "An unexpected error occurred",
+        title: "Errore di calcolo",
+        description: error instanceof Error ? error.message : "Si è verificato un errore imprevisto",
         variant: "destructive",
       });
     }
@@ -56,17 +56,17 @@ const Index = () => {
         <div className="flex justify-center mb-4">
           <Leaf className="h-12 w-12 text-primary" />
         </div>
-        <h1 className="text-3xl md:text-4xl font-bold mb-2">NutriCrema Calculator</h1>
+        <h1 className="text-3xl md:text-4xl font-bold mb-2">Calcolatore NutriCrema</h1>
         <p className="text-muted-foreground max-w-2xl mx-auto">
-          Calculate the perfect mixture of nuts to reach your desired nutritional profile for homemade nut butter and creams.
+          Calcola la miscela perfetta di frutta secca per ottenere il profilo nutrizionale desiderato per le tue creme spalmabili fatte in casa.
         </p>
       </header>
 
       <div className="space-y-8">
         <Card className="p-6">
-          <h2 className="text-xl font-semibold mb-4">1. Select Nuts</h2>
+          <h2 className="text-xl font-semibold mb-4">1. Seleziona Frutta Secca</h2>
           <p className="text-muted-foreground mb-4">
-            Choose the nuts you want to include in your mixture.
+            Scegli la frutta secca che vuoi includere nella tua miscela.
           </p>
           <NutSelector
             nuts={nuts}
@@ -76,9 +76,9 @@ const Index = () => {
         </Card>
 
         <Card className="p-6">
-          <h2 className="text-xl font-semibold mb-4">2. Set Nutritional Targets</h2>
+          <h2 className="text-xl font-semibold mb-4">2. Imposta Obiettivi Nutrizionali</h2>
           <p className="text-muted-foreground mb-4">
-            Enter your desired nutritional values for the final mixture.
+            Inserisci i valori nutrizionali desiderati per la miscela finale.
           </p>
           <NutritionalTargetForm
             target={nutritionalTarget}
@@ -94,7 +94,7 @@ const Index = () => {
             onClick={handleCalculate}
             className="bg-primary hover:bg-primary/90"
           >
-            Calculate Optimal Mixture
+            Calcola Miscela Ottimale
           </Button>
         </div>
 
@@ -104,7 +104,7 @@ const Index = () => {
           <div className="text-center p-8 border border-dashed rounded-lg bg-muted/40">
             <NutOff className="mx-auto h-12 w-12 text-muted-foreground mb-2" />
             <p className="text-muted-foreground">
-              Your calculation results will appear here
+              I risultati del calcolo appariranno qui
             </p>
           </div>
         )}

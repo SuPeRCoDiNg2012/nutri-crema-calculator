@@ -12,7 +12,7 @@ export interface NutType {
 export const nuts: NutType[] = [
   {
     id: "almond",
-    name: "Almonds",
+    name: "Mandorle",
     protein: 21.15,
     fat: 49.93,
     carbs: 21.55,
@@ -21,7 +21,7 @@ export const nuts: NutType[] = [
   },
   {
     id: "cashew",
-    name: "Cashews",
+    name: "Anacardi",
     protein: 18.22,
     fat: 43.85,
     carbs: 30.19,
@@ -30,7 +30,7 @@ export const nuts: NutType[] = [
   },
   {
     id: "hazelnut",
-    name: "Hazelnuts",
+    name: "Nocciole",
     protein: 14.95,
     fat: 60.75,
     carbs: 16.70,
@@ -39,7 +39,7 @@ export const nuts: NutType[] = [
   },
   {
     id: "peanut",
-    name: "Peanuts",
+    name: "Arachidi",
     protein: 25.80,
     fat: 49.24,
     carbs: 16.13,
@@ -48,7 +48,7 @@ export const nuts: NutType[] = [
   },
   {
     id: "walnut",
-    name: "Walnuts",
+    name: "Noci",
     protein: 15.23,
     fat: 65.21,
     carbs: 13.71,
@@ -57,7 +57,7 @@ export const nuts: NutType[] = [
   },
   {
     id: "pistachio",
-    name: "Pistachios",
+    name: "Pistacchi",
     protein: 20.16,
     fat: 45.32,
     carbs: 27.17,
@@ -66,7 +66,7 @@ export const nuts: NutType[] = [
   },
   {
     id: "brazil",
-    name: "Brazil Nuts",
+    name: "Noci del Brasile",
     protein: 14.32,
     fat: 67.10,
     carbs: 11.74,
@@ -75,7 +75,7 @@ export const nuts: NutType[] = [
   },
   {
     id: "macadamia",
-    name: "Macadamia Nuts",
+    name: "Noci di Macadamia",
     protein: 7.91,
     fat: 75.77,
     carbs: 13.82,
