@@ -1,4 +1,3 @@
-
 export interface NutType {
   id: string;
   name: string;
@@ -153,5 +152,77 @@ export const nuts: NutType[] = [
     carbs: 15.23,
     fiber: 9.0,
     calories: 354,
+  },
+  {
+    id: "pistachio_roasted",
+    name: "Pistacchi Tostati",
+    protein: 21.05,
+    fat: 45.39,
+    carbs: 27.97,
+    fiber: 9.9,
+    calories: 557,
+  },
+  {
+    id: "macadamia_roasted",
+    name: "Noci Macadamia Tostate",
+    protein: 7.91,
+    fat: 76.08,
+    carbs: 13.38,
+    fiber: 8.6,
+    calories: 716,
+  },
+  {
+    id: "pine_nut_roasted",
+    name: "Pinoli Tostati",
+    protein: 13.69,
+    fat: 68.37,
+    carbs: 13.08,
+    fiber: 3.7,
+    calories: 673,
+  },
+  {
+    id: "hemp_seed",
+    name: "Semi di Canapa",
+    protein: 31.56,
+    fat: 48.75,
+    carbs: 8.67,
+    fiber: 4.0,
+    calories: 553,
+  },
+  {
+    id: "poppy_seed",
+    name: "Semi di Papavero",
+    protein: 17.99,
+    fat: 41.56,
+    carbs: 28.13,
+    fiber: 19.5,
+    calories: 525,
+  },
+  {
+    id: "watermelon_seed",
+    name: "Semi di Anguria",
+    protein: 28.33,
+    fat: 47.37,
+    carbs: 15.31,
+    fiber: 5.9,
+    calories: 557,
+  },
+  {
+    id: "cashew_roasted",
+    name: "Anacardi Tostati",
+    protein: 15.31,
+    fat: 46.35,
+    carbs: 32.69,
+    fiber: 3.3,
+    calories: 574,
+  },
+  {
+    id: "pecan_roasted",
+    name: "Noci Pecan Tostate",
+    protein: 9.17,
+    fat: 71.97,
+    carbs: 13.86,
+    fiber: 9.6,
+    calories: 691,
   }
 ];

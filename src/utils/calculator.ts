@@ -1,4 +1,3 @@
-
 import { NutType } from "./nutData";
 
 export interface NutritionalTarget {
@@ -20,6 +19,27 @@ export interface CalculationResult {
   actualNutrition: NutritionalTarget;
   targetDifference: NutritionalTarget;
 }
+
+// Function to find the best nuts for target nutrition
+export const findBestNuts = (nuts: NutType[], target: NutritionalTarget, count: number = 5): NutType[] => {
+  // Calculate score for each nut based on how well it matches the target profile
+  const nutScores = nuts.map(nut => {
+    const proteinScore = Math.abs(nut.protein - target.protein) / target.protein;
+    const fatScore = Math.abs(nut.fat - target.fat) / target.fat;
+    const carbsScore = Math.abs(nut.carbs - target.carbs) / target.carbs;
+    const fiberScore = Math.abs(nut.fiber - target.fiber) / target.fiber;
+    const caloriesScore = Math.abs(nut.calories - target.calories) / target.calories;
+    
+    const totalScore = (proteinScore + fatScore + carbsScore + fiberScore + caloriesScore) / 5;
+    return { nut, score: totalScore };
+  });
+
+  // Sort by score (lower is better) and return top N nuts
+  return nutScores
+    .sort((a, b) => a.score - b.score)
+    .slice(0, count)
+    .map(item => item.nut);
+};
 
 // Simple linear optimization to find the best mix
 export const calculateNutMix = (

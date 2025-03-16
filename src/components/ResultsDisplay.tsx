@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import {
   Card,
@@ -18,11 +17,6 @@ import {
   ResponsiveContainer, 
   Tooltip, 
   Legend,
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
   RadarChart,
   PolarGrid,
   PolarAngleAxis,
@@ -34,7 +28,7 @@ import {
   ChartTooltip, 
   ChartTooltipContent 
 } from "@/components/ui/chart";
-import { PieChartIcon, BarChartIcon, ActivityIcon, ClipboardCopyIcon, CheckIcon } from "lucide-react";
+import { PieChartIcon, ActivityIcon, ClipboardCopyIcon, CheckIcon } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 
 interface ResultsDisplayProps {
@@ -44,7 +38,7 @@ interface ResultsDisplayProps {
 const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ result }) => {
   const { toast } = useToast();
   const [copied, setCopied] = useState(false);
-  const [chartType, setChartType] = useState<"pie" | "bar" | "radar">("pie");
+  const [chartType, setChartType] = useState<"pie" | "radar">("pie");
   
   if (!result) return null;
 
@@ -56,48 +50,7 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ result }) => {
     name: item.nut.name,
     value: item.percentage,
   }));
-  
-  // Prepara i dati per il grafico a barre
-  const barData = result.mix.map((item) => ({
-    name: item.nut.name,
-    percentage: item.percentage,
-    weight: formatNumber((item.percentage * result.totalWeight) / 100),
-  }));
 
-  // Prepara i dati per il grafico a radar
-  const radarData = [
-    {
-      subject: "Proteine",
-      A: formatNumber(result.actualNutrition.protein),
-      B: formatNumber(result.actualNutrition.protein - result.targetDifference.protein),
-      fullMark: Math.max(formatNumber(result.actualNutrition.protein), formatNumber(result.actualNutrition.protein - result.targetDifference.protein)) * 1.2,
-    },
-    {
-      subject: "Grassi",
-      A: formatNumber(result.actualNutrition.fat),
-      B: formatNumber(result.actualNutrition.fat - result.targetDifference.fat),
-      fullMark: Math.max(formatNumber(result.actualNutrition.fat), formatNumber(result.actualNutrition.fat - result.targetDifference.fat)) * 1.2,
-    },
-    {
-      subject: "Carboidrati",
-      A: formatNumber(result.actualNutrition.carbs),
-      B: formatNumber(result.actualNutrition.carbs - result.targetDifference.carbs),
-      fullMark: Math.max(formatNumber(result.actualNutrition.carbs), formatNumber(result.actualNutrition.carbs - result.targetDifference.carbs)) * 1.2,
-    },
-    {
-      subject: "Fibre",
-      A: formatNumber(result.actualNutrition.fiber),
-      B: formatNumber(result.actualNutrition.fiber - result.targetDifference.fiber),
-      fullMark: Math.max(formatNumber(result.actualNutrition.fiber), formatNumber(result.actualNutrition.fiber - result.targetDifference.fiber)) * 1.2,
-    },
-    {
-      subject: "Calorie",
-      A: formatNumber(result.actualNutrition.calories / 10),
-      B: formatNumber((result.actualNutrition.calories - result.targetDifference.calories) / 10),
-      fullMark: Math.max(formatNumber(result.actualNutrition.calories / 10), formatNumber((result.actualNutrition.calories - result.targetDifference.calories) / 10)) * 1.2,
-    },
-  ];
-  
   // Colori per i grafici
   const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#A28FD0', '#F87171', '#FB923C', '#FBBF24'];
 
@@ -152,34 +105,40 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ result }) => {
             </PieChart>
           </ResponsiveContainer>
         );
-      case "bar":
-        return (
-          <ResponsiveContainer width="100%" height={300}>
-            <BarChart
-              data={barData}
-              margin={{
-                top: 20,
-                right: 30,
-                left: 20,
-                bottom: 60,
-              }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" angle={-45} textAnchor="end" height={60} />
-              <YAxis yAxisId="left" orientation="left" stroke="#8884d8" label={{ value: '%', angle: -90, position: 'insideLeft' }} />
-              <YAxis yAxisId="right" orientation="right" stroke="#82ca9d" label={{ value: 'g', angle: -90, position: 'insideRight' }} />
-              <Tooltip 
-                formatter={(value, name) => {
-                  return [`${formatNumber(Number(value))}${name === 'percentage' ? '%' : 'g'}`, name === 'percentage' ? 'Percentuale' : 'Peso'];
-                }}
-              />
-              <Legend />
-              <Bar yAxisId="left" dataKey="percentage" name="Percentuale" fill="#8884d8" />
-              <Bar yAxisId="right" dataKey="weight" name="Peso (g)" fill="#82ca9d" />
-            </BarChart>
-          </ResponsiveContainer>
-        );
       case "radar":
+        // Prepara i dati per il grafico a radar
+        const radarData = [
+          {
+            subject: "Proteine",
+            A: formatNumber(result.actualNutrition.protein),
+            B: formatNumber(result.actualNutrition.protein - result.targetDifference.protein),
+            fullMark: Math.max(formatNumber(result.actualNutrition.protein), formatNumber(result.actualNutrition.protein - result.targetDifference.protein)) * 1.2,
+          },
+          {
+            subject: "Grassi",
+            A: formatNumber(result.actualNutrition.fat),
+            B: formatNumber(result.actualNutrition.fat - result.targetDifference.fat),
+            fullMark: Math.max(formatNumber(result.actualNutrition.fat), formatNumber(result.actualNutrition.fat - result.targetDifference.fat)) * 1.2,
+          },
+          {
+            subject: "Carboidrati",
+            A: formatNumber(result.actualNutrition.carbs),
+            B: formatNumber(result.actualNutrition.carbs - result.targetDifference.carbs),
+            fullMark: Math.max(formatNumber(result.actualNutrition.carbs), formatNumber(result.actualNutrition.carbs - result.targetDifference.carbs)) * 1.2,
+          },
+          {
+            subject: "Fibre",
+            A: formatNumber(result.actualNutrition.fiber),
+            B: formatNumber(result.actualNutrition.fiber - result.targetDifference.fiber),
+            fullMark: Math.max(formatNumber(result.actualNutrition.fiber), formatNumber(result.actualNutrition.fiber - result.targetDifference.fiber)) * 1.2,
+          },
+          {
+            subject: "Calorie",
+            A: formatNumber(result.actualNutrition.calories / 10),
+            B: formatNumber((result.actualNutrition.calories - result.targetDifference.calories) / 10),
+            fullMark: Math.max(formatNumber(result.actualNutrition.calories / 10), formatNumber((result.actualNutrition.calories - result.targetDifference.calories) / 10)) * 1.2,
+          },
+        ];
         return (
           <ResponsiveContainer width="100%" height={300}>
             <RadarChart outerRadius={90} data={radarData}>
@@ -247,14 +206,6 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ result }) => {
                   Torta
                 </Button>
                 <Button 
-                  variant={chartType === "bar" ? "default" : "outline"} 
-                  size="sm"
-                  onClick={() => setChartType("bar")}
-                >
-                  <BarChartIcon className="h-4 w-4 mr-1" />
-                  Barre
-                </Button>
-                <Button 
                   variant={chartType === "radar" ? "default" : "outline"} 
                   size="sm"
                   onClick={() => setChartType("radar")}
@@ -303,43 +254,7 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ result }) => {
                 fiber: { color: "#ff8042" }
               }}
             >
-              <BarChart
-                data={[
-                  { name: "Proteine", value: formatNumber(result.actualNutrition.protein), color: "protein" },
-                  { name: "Grassi", value: formatNumber(result.actualNutrition.fat), color: "fat" },
-                  { name: "Carboidrati", value: formatNumber(result.actualNutrition.carbs), color: "carbs" },
-                  { name: "Fibre", value: formatNumber(result.actualNutrition.fiber), color: "fiber" },
-                ]}
-                margin={{ top: 10, right: 10, bottom: 20, left: 10 }}
-              >
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip
-                  content={({ active, payload }) => {
-                    if (active && payload && payload.length) {
-                      return (
-                        <div className="rounded-lg border bg-background p-2 shadow-sm">
-                          <div className="grid grid-cols-2 gap-2">
-                            <div className="font-medium">{payload[0].payload.name}</div>
-                            <div className="font-medium">{payload[0].value}g</div>
-                          </div>
-                        </div>
-                      )
-                    }
-                    return null;
-                  }}
-                />
-                <Bar dataKey="value">
-                  {[
-                    { name: "Proteine", value: formatNumber(result.actualNutrition.protein), color: "protein" },
-                    { name: "Grassi", value: formatNumber(result.actualNutrition.fat), color: "fat" },
-                    { name: "Carboidrati", value: formatNumber(result.actualNutrition.carbs), color: "carbs" },
-                    { name: "Fibre", value: formatNumber(result.actualNutrition.fiber), color: "fiber" },
-                  ].map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={`var(--color-${entry.color})`} />
-                  ))}
-                </Bar>
-              </BarChart>
+              
             </ChartContainer>
             
             <dl className="space-y-2">
@@ -382,81 +297,7 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ result }) => {
                 negative: { color: "#ff8042" },
               }}
             >
-              <BarChart
-                data={[
-                  { 
-                    name: "Proteine", 
-                    value: formatNumber(Math.abs(result.targetDifference.protein)),
-                    direction: result.targetDifference.protein > 0 ? "positive" : "negative",
-                    sign: result.targetDifference.protein > 0 ? "+" : "-"
-                  },
-                  { 
-                    name: "Grassi", 
-                    value: formatNumber(Math.abs(result.targetDifference.fat)),
-                    direction: result.targetDifference.fat > 0 ? "positive" : "negative",
-                    sign: result.targetDifference.fat > 0 ? "+" : "-"
-                  },
-                  { 
-                    name: "Carboidrati", 
-                    value: formatNumber(Math.abs(result.targetDifference.carbs)),
-                    direction: result.targetDifference.carbs > 0 ? "positive" : "negative",
-                    sign: result.targetDifference.carbs > 0 ? "+" : "-"
-                  },
-                  { 
-                    name: "Fibre", 
-                    value: formatNumber(Math.abs(result.targetDifference.fiber)),
-                    direction: result.targetDifference.fiber > 0 ? "positive" : "negative",
-                    sign: result.targetDifference.fiber > 0 ? "+" : "-"
-                  },
-                ]}
-                margin={{ top: 10, right: 10, bottom: 20, left: 10 }}
-              >
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip
-                  content={({ active, payload }) => {
-                    if (active && payload && payload.length) {
-                      return (
-                        <div className="rounded-lg border bg-background p-2 shadow-sm">
-                          <div className="grid grid-cols-2 gap-2">
-                            <div className="font-medium">{payload[0].payload.name}</div>
-                            <div className="font-medium">
-                              {payload[0].payload.sign}{payload[0].value}g
-                            </div>
-                          </div>
-                        </div>
-                      )
-                    }
-                    return null;
-                  }}
-                />
-                <Bar dataKey="value">
-                  {[
-                    { 
-                      name: "Proteine", 
-                      value: formatNumber(Math.abs(result.targetDifference.protein)),
-                      direction: result.targetDifference.protein > 0 ? "positive" : "negative",
-                    },
-                    { 
-                      name: "Grassi", 
-                      value: formatNumber(Math.abs(result.targetDifference.fat)),
-                      direction: result.targetDifference.fat > 0 ? "positive" : "negative",
-                    },
-                    { 
-                      name: "Carboidrati", 
-                      value: formatNumber(Math.abs(result.targetDifference.carbs)),
-                      direction: result.targetDifference.carbs > 0 ? "positive" : "negative",
-                    },
-                    { 
-                      name: "Fibre", 
-                      value: formatNumber(Math.abs(result.targetDifference.fiber)),
-                      direction: result.targetDifference.fiber > 0 ? "positive" : "negative",
-                    },
-                  ].map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={`var(--color-${entry.direction})`} />
-                  ))}
-                </Bar>
-              </BarChart>
+              
             </ChartContainer>
             
             <dl className="space-y-2">

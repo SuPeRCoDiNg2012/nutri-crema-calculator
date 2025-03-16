@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -9,6 +8,8 @@ import { calculateNutMix, CalculationResult, NutritionalTarget } from "@/utils/c
 import NutSelector from "@/components/NutSelector";
 import NutritionalTargetForm from "@/components/NutritionalTargetForm";
 import ResultsDisplay from "@/components/ResultsDisplay";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { findBestNuts } from "@/utils/calculator";
 
 const Index = () => {
   const { toast } = useToast();
@@ -22,9 +23,15 @@ const Index = () => {
     calories: 600,
   });
   const [calculationResult, setCalculationResult] = useState<CalculationResult | null>(null);
-
+  const [calculationMode, setCalculationMode] = useState<"manual" | "auto">("manual");
+  
   const handleCalculate = () => {
     try {
+      if (calculationMode === "auto") {
+        const bestNuts = findBestNuts(nuts, nutritionalTarget, 5);
+        setSelectedNuts(bestNuts);
+      }
+
       if (selectedNuts.length === 0) {
         toast({
           title: "Nessuna frutta secca selezionata",
@@ -64,15 +71,43 @@ const Index = () => {
 
       <div className="space-y-8">
         <Card className="p-6">
-          <h2 className="text-xl font-semibold mb-4">1. Seleziona Frutta Secca</h2>
-          <p className="text-muted-foreground mb-4">
-            Scegli la frutta secca che vuoi includere nella tua miscela.
-          </p>
-          <NutSelector
-            nuts={nuts}
-            selectedNuts={selectedNuts}
-            onChange={setSelectedNuts}
-          />
+          <h2 className="text-xl font-semibold mb-4">1. Modalità di Selezione</h2>
+          <RadioGroup
+            value={calculationMode}
+            onValueChange={(value) => setCalculationMode(value as "manual" | "auto")}
+            className="flex flex-col space-y-2 mb-4"
+          >
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem value="manual" id="manual" />
+              <label htmlFor="manual" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                Selezione Manuale
+              </label>
+            </div>
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem value="auto" id="auto" />
+              <label htmlFor="auto" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                Selezione Automatica
+              </label>
+            </div>
+          </RadioGroup>
+
+          {calculationMode === "manual" && (
+            <>
+              <p className="text-muted-foreground mb-4">
+                Scegli la frutta secca che vuoi includere nella tua miscela.
+              </p>
+              <NutSelector
+                nuts={nuts}
+                selectedNuts={selectedNuts}
+                onChange={setSelectedNuts}
+              />
+            </>
+          )}
+          {calculationMode === "auto" && (
+            <p className="text-muted-foreground">
+              Il sistema selezionerà automaticamente le 5 migliori opzioni in base ai tuoi obiettivi nutrizionali.
+            </p>
+          )}
         </Card>
 
         <Card className="p-6">

@@ -38,6 +38,26 @@ const NutritionalTargetForm: React.FC<NutritionalTargetFormProps> = ({
     {
       name: "Keto",
       values: { protein: 20, fat: 70, carbs: 5, fiber: 5, calories: 700 }
+    },
+    {
+      name: "Bilanciato",
+      values: { protein: 25, fat: 45, carbs: 25, fiber: 15, calories: 550 }
+    },
+    {
+      name: "Alta Fibra",
+      values: { protein: 20, fat: 40, carbs: 25, fiber: 25, calories: 500 }
+    },
+    {
+      name: "Energia",
+      values: { protein: 15, fat: 55, carbs: 30, fiber: 8, calories: 650 }
+    },
+    {
+      name: "Sport",
+      values: { protein: 35, fat: 35, carbs: 25, fiber: 12, calories: 580 }
+    },
+    {
+      name: "Snack Leggero",
+      values: { protein: 20, fat: 35, carbs: 20, fiber: 15, calories: 450 }
     }
   ];
 
