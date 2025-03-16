@@ -332,7 +332,21 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ result }) => {
                   <XAxis dataKey="name" />
                   <YAxis />
                   <Tooltip />
-                  <Bar dataKey="value" fill={(data) => data.value >= 0 ? "#82ca9d" : "#ff8042"} />
+                  <Bar 
+                    dataKey="value" 
+                    fill="#82ca9d"
+                    // The issue is here - we need to use a proper Cell component instead of a function for fill
+                  >
+                    {/* Add cells with specific colors based on the data value */}
+                    {[
+                      { name: "Proteine", value: formatNumber(result.targetDifference.protein) },
+                      { name: "Grassi", value: formatNumber(result.targetDifference.fat) },
+                      { name: "Carboidrati", value: formatNumber(result.targetDifference.carbs) },
+                      { name: "Fibre", value: formatNumber(result.targetDifference.fiber) },
+                    ].map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.value >= 0 ? "#82ca9d" : "#ff8042"} />
+                    ))}
+                  </Bar>
                 </BarChart>
               </ResponsiveContainer>
             </ChartContainer>
