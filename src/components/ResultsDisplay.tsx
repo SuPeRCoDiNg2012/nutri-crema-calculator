@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import {
   Card,
@@ -21,7 +22,12 @@ import {
   PolarGrid,
   PolarAngleAxis,
   PolarRadiusAxis,
-  Radar
+  Radar,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid
 } from "recharts";
 import { 
   ChartContainer, 
@@ -50,6 +56,14 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ result }) => {
     name: item.nut.name,
     value: item.percentage,
   }));
+
+  // Prepara i dati per il grafico a barre della composizione nutrizionale
+  const nutritionData = [
+    { name: "Proteine", value: formatNumber(result.actualNutrition.protein) },
+    { name: "Grassi", value: formatNumber(result.actualNutrition.fat) },
+    { name: "Carboidrati", value: formatNumber(result.actualNutrition.carbs) },
+    { name: "Fibre", value: formatNumber(result.actualNutrition.fiber) },
+  ];
 
   // Colori per i grafici
   const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#A28FD0', '#F87171', '#FB923C', '#FBBF24'];
@@ -254,7 +268,15 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ result }) => {
                 fiber: { color: "#ff8042" }
               }}
             >
-              
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={nutritionData}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="name" />
+                  <YAxis />
+                  <Tooltip />
+                  <Bar dataKey="value" fill="#8884d8" />
+                </BarChart>
+              </ResponsiveContainer>
             </ChartContainer>
             
             <dl className="space-y-2">
@@ -297,7 +319,22 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ result }) => {
                 negative: { color: "#ff8042" },
               }}
             >
-              
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart
+                  data={[
+                    { name: "Proteine", value: formatNumber(result.targetDifference.protein) },
+                    { name: "Grassi", value: formatNumber(result.targetDifference.fat) },
+                    { name: "Carboidrati", value: formatNumber(result.targetDifference.carbs) },
+                    { name: "Fibre", value: formatNumber(result.targetDifference.fiber) },
+                  ]}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="name" />
+                  <YAxis />
+                  <Tooltip />
+                  <Bar dataKey="value" fill={(data) => data.value >= 0 ? "#82ca9d" : "#ff8042"} />
+                </BarChart>
+              </ResponsiveContainer>
             </ChartContainer>
             
             <dl className="space-y-2">

@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -5,6 +6,7 @@ import { Slider } from "@/components/ui/slider";
 import { Input } from "@/components/ui/input";
 import { Leaf, Weight, Flame, Beef, Wheat, Apple } from "lucide-react";
 import { NutritionalTarget } from "@/utils/calculator";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface NutritionalTargetFormProps {
   target: NutritionalTarget;
@@ -58,6 +60,178 @@ const NutritionalTargetForm: React.FC<NutritionalTargetFormProps> = ({
     {
       name: "Snack Leggero",
       values: { protein: 20, fat: 35, carbs: 20, fiber: 15, calories: 450 }
+    },
+    {
+      name: "Pre-Workout",
+      values: { protein: 25, fat: 30, carbs: 40, fiber: 8, calories: 530 }
+    },
+    {
+      name: "Post-Workout",
+      values: { protein: 35, fat: 25, carbs: 35, fiber: 10, calories: 510 }
+    },
+    {
+      name: "Colazione Proteica",
+      values: { protein: 28, fat: 42, carbs: 18, fiber: 12, calories: 560 }
+    },
+    {
+      name: "Merenda Energetica",
+      values: { protein: 15, fat: 50, carbs: 30, fiber: 5, calories: 620 }
+    },
+    {
+      name: "Paleo",
+      values: { protein: 28, fat: 60, carbs: 10, fiber: 8, calories: 680 }
+    },
+    {
+      name: "Mediterraneo",
+      values: { protein: 18, fat: 45, carbs: 35, fiber: 14, calories: 610 }
+    },
+    {
+      name: "Vegano Sportivo",
+      values: { protein: 25, fat: 35, carbs: 30, fiber: 20, calories: 530 }
+    },
+    {
+      name: "Basso Indice Glicemico",
+      values: { protein: 20, fat: 50, carbs: 15, fiber: 15, calories: 580 }
+    },
+    {
+      name: "Alte Calorie",
+      values: { protein: 25, fat: 60, carbs: 25, fiber: 10, calories: 730 }
+    },
+    {
+      name: "Basse Calorie",
+      values: { protein: 25, fat: 30, carbs: 20, fiber: 15, calories: 450 }
+    },
+    {
+      name: "Dieta Proteica",
+      values: { protein: 40, fat: 35, carbs: 15, fiber: 10, calories: 530 }
+    },
+    {
+      name: "Bilanciato Leggero",
+      values: { protein: 22, fat: 38, carbs: 28, fiber: 12, calories: 530 }
+    },
+    {
+      name: "Anti-Infiammatorio",
+      values: { protein: 20, fat: 50, carbs: 20, fiber: 18, calories: 600 }
+    },
+    {
+      name: "Diabetico",
+      values: { protein: 25, fat: 45, carbs: 15, fiber: 15, calories: 550 }
+    },
+    {
+      name: "Carbs Lover",
+      values: { protein: 15, fat: 30, carbs: 45, fiber: 10, calories: 510 }
+    },
+    {
+      name: "Fibre Lover",
+      values: { protein: 18, fat: 40, carbs: 22, fiber: 28, calories: 510 }
+    },
+    {
+      name: "Sportivo Resistenza",
+      values: { protein: 22, fat: 30, carbs: 45, fiber: 12, calories: 540 }
+    },
+    {
+      name: "Sportivo Forza",
+      values: { protein: 35, fat: 40, carbs: 20, fiber: 10, calories: 580 }
+    },
+    {
+      name: "Controllo Peso",
+      values: { protein: 30, fat: 35, carbs: 15, fiber: 20, calories: 480 }
+    },
+    {
+      name: "Fase Bulking",
+      values: { protein: 30, fat: 45, carbs: 25, fiber: 8, calories: 620 }
+    },
+    {
+      name: "Fase Cutting",
+      values: { protein: 35, fat: 30, carbs: 15, fiber: 15, calories: 460 }
+    },
+    {
+      name: "Bambini",
+      values: { protein: 18, fat: 40, carbs: 35, fiber: 12, calories: 570 }
+    },
+    {
+      name: "Anziani",
+      values: { protein: 25, fat: 35, carbs: 30, fiber: 20, calories: 530 }
+    },
+    {
+      name: "Adolescenti",
+      values: { protein: 25, fat: 40, carbs: 30, fiber: 12, calories: 580 }
+    },
+    {
+      name: "Gravidanza",
+      values: { protein: 25, fat: 40, carbs: 25, fiber: 20, calories: 550 }
+    },
+    {
+      name: "Allattamento",
+      values: { protein: 28, fat: 45, carbs: 25, fiber: 18, calories: 610 }
+    },
+    {
+      name: "Sportivo Vegano",
+      values: { protein: 28, fat: 40, carbs: 25, fiber: 22, calories: 560 }
+    },
+    {
+      name: "Alta Energia",
+      values: { protein: 20, fat: 55, carbs: 25, fiber: 8, calories: 670 }
+    },
+    {
+      name: "Dolce Senza Zucchero",
+      values: { protein: 15, fat: 55, carbs: 15, fiber: 10, calories: 600 }
+    },
+    {
+      name: "Salato",
+      values: { protein: 25, fat: 60, carbs: 10, fiber: 5, calories: 670 }
+    },
+    {
+      name: "Cioccolato Lover",
+      values: { protein: 12, fat: 65, carbs: 20, fiber: 12, calories: 700 }
+    },
+    {
+      name: "Croccante",
+      values: { protein: 20, fat: 50, carbs: 25, fiber: 5, calories: 620 }
+    },
+    {
+      name: "Cremoso",
+      values: { protein: 15, fat: 70, carbs: 10, fiber: 5, calories: 720 }
+    },
+    {
+      name: "Pre-Gara",
+      values: { protein: 20, fat: 30, carbs: 45, fiber: 5, calories: 530 }
+    },
+    {
+      name: "Recovery",
+      values: { protein: 30, fat: 25, carbs: 40, fiber: 10, calories: 505 }
+    },
+    {
+      name: "Dolce Naturale",
+      values: { protein: 15, fat: 45, carbs: 35, fiber: 15, calories: 595 }
+    },
+    {
+      name: "Immune Booster",
+      values: { protein: 22, fat: 42, carbs: 25, fiber: 18, calories: 560 }
+    },
+    {
+      name: "Gluten Free",
+      values: { protein: 18, fat: 55, carbs: 22, fiber: 15, calories: 650 }
+    },
+    {
+      name: "Dieta Zona",
+      values: { protein: 30, fat: 30, carbs: 40, fiber: 12, calories: 550 }
+    },
+    {
+      name: "Detox",
+      values: { protein: 22, fat: 38, carbs: 25, fiber: 25, calories: 520 }
+    },
+    {
+      name: "Spuntino Pre-Notte",
+      values: { protein: 20, fat: 45, carbs: 20, fiber: 10, calories: 550 }
+    },
+    {
+      name: "Dessert Protein",
+      values: { protein: 25, fat: 45, carbs: 25, fiber: 8, calories: 590 }
+    },
+    {
+      name: "Spalmabile Golosa",
+      values: { protein: 18, fat: 60, carbs: 20, fiber: 8, calories: 680 }
     }
   ];
 
@@ -78,19 +252,21 @@ const NutritionalTargetForm: React.FC<NutritionalTargetFormProps> = ({
     <div className="space-y-6">
       <div className="space-y-2">
         <p className="text-sm font-medium">Profili Predefiniti:</p>
-        <div className="flex flex-wrap gap-2">
-          {presetProfiles.map((preset) => (
-            <Button
-              key={preset.name}
-              variant="outline"
-              size="sm"
-              onClick={() => applyPreset(preset)}
-              className="text-xs"
-            >
-              {preset.name}
-            </Button>
-          ))}
-        </div>
+        <ScrollArea className="h-32 w-full rounded-md border">
+          <div className="flex flex-wrap gap-2 p-2">
+            {presetProfiles.map((preset) => (
+              <Button
+                key={preset.name}
+                variant="outline"
+                size="sm"
+                onClick={() => applyPreset(preset)}
+                className="text-xs whitespace-nowrap"
+              >
+                {preset.name}
+              </Button>
+            ))}
+          </div>
+        </ScrollArea>
       </div>
 
       <div className="space-y-6">
